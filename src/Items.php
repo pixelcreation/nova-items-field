@@ -24,7 +24,7 @@ class Items extends Field
     {
         parent::resolve($resource, $attribute);
 
-        $this->fillUsing(function($request, $model, $attribute, $requestAttribute) {
+        $this->fillUsing(function ($request, $model, $attribute, $requestAttribute) {
             $model->$attribute = $this->isNullValue($request->$attribute) ? null : json_decode($request->$attribute, true);
         });
 
@@ -50,7 +50,7 @@ class Items extends Field
             abort(500, 'Nova Items Field requires array of validation rules');
         }
 
-        $this->rules = [ new ArrayRules($rules) ];
+        $this->rules = [new ArrayRules($rules)];
 
         return $this;
     }

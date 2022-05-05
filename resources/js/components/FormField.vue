@@ -18,12 +18,19 @@
                     class="ml-3 cursor-pointer shadow relative bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-white dark:text-gray-900 cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring inline-flex items-center justify-center h-9 px-3 shadow relative bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-white dark:text-gray-900"
                 />
             </div>
-            <ul ref="novaitemslist" :style="maxHeight" v-if="items.length" class="nova-items-field-input-items list-reset">
-                <draggable v-model="items" :item-key="currentField.attribute + '.' + index" :options="{ disabled: currentField.draggable === false, handle: '.sortable-handle' }">
+            <ul ref="novaitemslist" :style="maxHeight" v-if="items.length"
+                class="nova-items-field-input-items list-reset">
+                <draggable
+                    v-model="items"
+                    :item-key="currentField.attribute + '.' + index"
+                    :options="{ disabled: currentField.draggable === false, handle: '.sortable-handle' }"
+                >
                     <template #item="{ element, index }">
                         <li class="py-1">
                             <div class="nova-items-field-input-wrapper-item flex py-1 gap-2">
-                                <button type="button" class="cursor-move sortable-handle px-4"><Icon type="view-list" /></button>
+                                <button type="button" class="cursor-move sortable-handle px-4">
+                                    <Icon type="view-list"/>
+                                </button>
                                 <input
                                     :value="element"
                                     :type="currentField.inputType"
@@ -40,8 +47,9 @@
                                     v-html="currentField.deleteButtonValue"
                                 />
                             </div>
-                            <HelpText class="mt-2 help-text-error" v-if="hasErrors(currentField.attribute + '.' + index)">
-                              {{ arrayErrors[currentField.attribute + '.' + index][0] }}
+                            <HelpText class="mt-2 help-text-error"
+                                      v-if="hasErrors(currentField.attribute + '.' + index)">
+                                {{ arrayErrors[currentField.attribute + '.' + index][0] }}
                             </HelpText>
                         </li>
                     </template>
@@ -56,11 +64,11 @@
                     @keypress.enter.prevent="addItem"
                 />
                 <button
-                 type="button"
-                 @click="addItem"
-                 v-html="currentField.createButtonValue"
-                 v-if="currentField.hideCreateButton === false"
-                 class="ml-3 cursor-pointer shadow relative bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-white dark:text-gray-900 cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring inline-flex items-center justify-center h-9 px-3 shadow relative bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-white dark:text-gray-900"
+                    type="button"
+                    @click="addItem"
+                    v-html="currentField.createButtonValue"
+                    v-if="currentField.hideCreateButton === false"
+                    class="ml-3 cursor-pointer shadow relative bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-white dark:text-gray-900 cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring inline-flex items-center justify-center h-9 px-3 shadow relative bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-white dark:text-gray-900"
                 />
             </div>
         </template>
@@ -72,14 +80,14 @@
 
 <script>
 import draggable from 'vuedraggable'
-import { DependentFormField, HandlesValidationErrors } from 'laravel-nova'
+import {DependentFormField, HandlesValidationErrors} from 'laravel-nova'
 
 export default {
     mixins: [DependentFormField, HandlesValidationErrors],
 
     props: ['resourceName', 'resourceId', 'field'],
 
-    components: { draggable },
+    components: {draggable},
 
     data() {
         return {
@@ -100,31 +108,31 @@ export default {
             formData.append(this.field.attribute, this.value || [])
         },
 
-		addItem() {
+        addItem() {
             const item = this.newItem.trim();
-			if (item && ! this.maxReached) {
-				this.items.push(item)
+            if (item && !this.maxReached) {
+                this.items.push(item)
                 this.newItem = ''
 
                 this.$nextTick(() => {
-                    if(this.field.maxHeight){
+                    if (this.field.maxHeight) {
                         this.$refs.novaitemslist.scrollTop = this.$refs.novaitemslist.scrollHeight;
                     }
                 })
-			}
+            }
         },
 
         updateItem(index, event) {
             this.items[index] = event.target.value
         },
 
-		removeItem (index) {
-			this.items.splice(index, 1)
+        removeItem(index) {
+            this.items.splice(index, 1)
         },
 
         hasErrors(key) {
             return this.arrayErrors.hasOwnProperty(key);
-		}
+        }
     },
     computed: {
         maxHeight() {
@@ -147,7 +155,7 @@ export default {
         },
         'errors': {
             handler: function (errors) {
-                if(errors.errors.hasOwnProperty(this.field.attribute)) {
+                if (errors.errors.hasOwnProperty(this.field.attribute)) {
                     this.arrayErrors = JSON.parse(errors.errors[this.field.attribute][0])
                 }
             },
