@@ -59,7 +59,7 @@ class Items extends Field
             abort(500, 'Nova Items Field requires array of validation rules');
         }
 
-        $this->rules = [ new ArrayRules($rules) ];
+        $this->rules = [new ArrayRules($rules)];
 
         return $this;
     }
