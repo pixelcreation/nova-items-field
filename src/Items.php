@@ -16,7 +16,7 @@ class Items extends Field
     public $draggable = false;
     public $hideCreateButton = false;
     public $createButtonValue = "Add";
-    public $deleteButtonValue = "x";
+    public $deleteButtonValue = null;
     public $listFirst = false;
     public $detailItemComponent = 'detail-nova-items-field-item';
 
