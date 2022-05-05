@@ -28,7 +28,7 @@
                     <template #item="{ element, index }">
                         <li class="py-1">
                             <div class="nova-items-field-input-wrapper-item flex py-1 gap-2">
-                                <button class="cursor-move sortable-handle pr-2">
+                                <button class="cursor-move sortable-handle px-1 mr-1">
                                     <Icon type="menu"/>
                                 </button>
                                 <input
@@ -47,7 +47,7 @@
                                     class="px-4 text-xl font-bold focus:outline-none focus:ring"
                                     v-html="currentField.deleteButtonValue"
                                 />
-                                <button v-else type="button" @click="removeItem(index)" class="px-2 toolbar-button">
+                                <button v-else type="button" @click="removeItem(index)" class="px-1 ml-1 toolbar-button">
                                     <Icon type="x"/>
                                 </button>
                             </div>
