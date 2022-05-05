@@ -8,17 +8,24 @@ class Items extends Field
 {
     public $items = [];
     public $component = 'nova-items-field';
-    public $placeholder = "Add a new item";
+    public $placeholder;
     public $inputType = 'text';
     public $max = false;
     public $fullWidth = false;
     public $maxHeight = false;
     public $draggable = false;
     public $hideCreateButton = false;
-    public $createButtonValue = "Add";
+    public $createButtonValue;
     public $deleteButtonValue = "x";
     public $listFirst = false;
     public $detailItemComponent = 'detail-nova-items-field-item';
+
+    public function __construct($name, $attribute = null, callable $resolveCallback = null)
+    {
+        parent::__construct($name, $attribute, $resolveCallback);
+        $this->placeholder = __('Add a new item');
+        $this->createButtonValue = __('Add');
+    }
 
     public function resolve($resource, $attribute = null)
     {
